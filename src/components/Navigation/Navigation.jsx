@@ -1,15 +1,17 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import { Outlet, useSearchParams, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import styles from "./Navigation.module.css";
 
 const Navigation = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     navigate("/products", { state: { query: search } });
   };
+
   return (
     <>
       <div className={styles.navigation}>
