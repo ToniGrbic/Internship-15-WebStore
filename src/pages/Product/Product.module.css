@@ -1,6 +1,6 @@
 .product-container {
   display: flex;
-  height: 400px;
+  min-height: 400px;
   justify-content: center;
 }
 
@@ -15,9 +15,8 @@
   width: 400px;
   height: 100%;
   overflow: hidden;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
-
+  margin-right: 1rem;
   & img {
     width: 100%;
     height: 100%;
