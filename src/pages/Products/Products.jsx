@@ -1,33 +1,58 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useSearchParams, useLocation } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import ProductCard from "../../components/ProductCard";
 import styles from "./Products.module.css";
 
-const Products = ({ products }) => {
-  const location = useLocation();
+const Products = ({ products, categories, search }) => {
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [categoryFilter, setCategoryFilter] = useState("All");
+  const [_, setSearchParams] = useSearchParams();
 
   const filterProducts = (products, searchTerm) => {
     return products.filter((product) => {
-      return product.title.toLowerCase().includes(searchTerm.toLowerCase());
+      const containsTilte = product.title
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+
+      const containsCategory =
+        categoryFilter === "All" || product.category === categoryFilter;
+
+      return containsTilte && containsCategory;
     });
   };
 
   useEffect(() => {
-    const searchTerm = location.state.query;
-    setSearchParams({ search: searchTerm });
+    setSearchParams({ search });
 
-    const filteredProducts = filterProducts(products, searchTerm);
+    const filteredProducts = filterProducts(products, search);
     setFilteredProducts(filteredProducts);
-  }, []);
+  }, [search, categoryFilter]);
 
   return (
-    <div className={styles["products-container"]}>
-      {filteredProducts.map((product) => {
-        return <ProductCard key={product.id} product={product} />;
-      })}
+    <div>
+      <div className={styles["products-categories"]}>
+        {categories.map((category) => {
+          return (
+            <button
+              className={styles["category-button"]}
+              key={category}
+              onClick={() => setCategoryFilter(category)}
+              style={{
+                backgroundColor:
+                  categoryFilter === category ? "lightblue" : "white",
+              }}
+            >
+              {category}
+            </button>
+          );
+        })}
+      </div>
+      <div className={styles["products-container"]}>
+        {filteredProducts.map((product) => {
+          return <ProductCard key={product.id} product={product} />;
+        })}
+      </div>
     </div>
   );
 };

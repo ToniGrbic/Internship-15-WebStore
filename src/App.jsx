@@ -9,25 +9,43 @@ import NotFound from "./pages/NotFound";
 
 function App() {
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [search, setSearch] = useState("");
+
+  const url = "https://fakestoreapi.com/products";
+
   useEffect(() => {
     (async () => {
-      const response = await fetch("https://fakestoreapi.com/products");
+      const response = await fetch(url);
       const products = await response.json();
       setProducts(products);
+
+      const categories = products.reduce((acc, product) => {
+        if (!acc.includes(product.category)) acc.push(product.category);
+        return acc;
+      }, []);
+      setCategories(["All", ...categories]);
     })();
   }, []);
+
   return (
     <>
       <BrowserRouter>
         <Routes>
-          <Route element={<Navigation />}>
+          <Route element={<Navigation setSearch={setSearch} />}>
             <Route path="/" element={<Home />} />
             <Route
               path="/products"
-              element={<Products products={products} />}
+              element={
+                <Products
+                  products={products}
+                  categories={categories}
+                  search={search}
+                />
+              }
             />
             <Route
-              path="/product/:id"
+              path="/product/:productId"
               element={<Product products={products} />}
             />
             <Route path="*" element={<NotFound />} />
