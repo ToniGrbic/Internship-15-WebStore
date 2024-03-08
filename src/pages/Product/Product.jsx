@@ -30,7 +30,7 @@ const Product = ({ products }) => {
               <p>{product.description}</p>
             </div>
           </div>
-          <h2>Other products: </h2>
+          <h2 className={styles["other-products-title"]}>Other products: </h2>
           <div className={styles["products-container"]}>
             {otherProducts.map((product) => {
               return <ProductCard key={product.id} product={product} />;
