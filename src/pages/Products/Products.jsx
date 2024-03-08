@@ -5,9 +5,9 @@ import ProductCard from "../../components/ProductCard";
 import styles from "./Products.module.css";
 
 const Products = ({ products, categories, search }) => {
-  const [filteredProducts, setFilteredProducts] = useState([]);
-  const [categoryFilter, setCategoryFilter] = useState("All");
   const [_, setSearchParams] = useSearchParams();
+  const [categoryFilter, setCategoryFilter] = useState("All");
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   const filterProducts = (products, searchTerm) => {
     return products.filter((product) => {
@@ -18,13 +18,13 @@ const Products = ({ products, categories, search }) => {
       const containsCategory =
         categoryFilter === "All" || product.category === categoryFilter;
 
+      if (searchTerm === "") return containsCategory;
       return containsTilte && containsCategory;
     });
   };
 
   useEffect(() => {
     setSearchParams({ search });
-
     const filteredProducts = filterProducts(products, search);
     setFilteredProducts(filteredProducts);
   }, [search, categoryFilter]);
