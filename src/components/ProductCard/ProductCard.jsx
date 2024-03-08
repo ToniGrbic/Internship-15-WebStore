@@ -11,6 +11,7 @@ const ProductCard = ({ product }) => {
     }
     navigate(`/product/${product.id}`, { state: product });
   };
+
   return (
     <div
       className={styles["product-card"]}
