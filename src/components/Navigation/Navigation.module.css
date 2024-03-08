@@ -20,4 +20,8 @@
   border-radius: 0.5rem;
   background-color: lightblue;
   cursor: pointer;
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: #6dd4f6;
+  }
 }
