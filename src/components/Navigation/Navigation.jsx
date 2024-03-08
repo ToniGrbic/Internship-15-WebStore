@@ -17,12 +17,15 @@ const Navigation = ({ setSearch }) => {
       <div className={styles.navigation}>
         <form onSubmit={handleSubmit}>
           <input
+            className={styles["search-input"]}
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search..."
           />
-          <button type="submit">Search</button>
+          <button className={styles["search-button"]} type="submit">
+            Search
+          </button>
         </form>
       </div>
       <Outlet />
