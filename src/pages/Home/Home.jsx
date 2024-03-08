@@ -1,26 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import styles from "./Home.module.css";
 
 const Home = () => {
-  const [products, setProducts] = useState([]);
-  useEffect(() => {
-    (async () => {
-      const response = await fetch("https://fakestoreapi.com/products");
-      const products = await response.json();
-
-      setProducts(products);
-    })();
-  }, []);
-
   return (
-    <div>
-      {products.map((product) => {
-        return (
-          <div key={product.id}>
-            <h2>{product.title}</h2>
-            <p>{product.caregory}</p>
-          </div>
-        );
-      })}
+    <div className={styles["home-container"]}>
+      <h1>Welcome to the home page!</h1>
+      <p>
+        This is a simple e-commerce site. Search for a product to navigate to
+        the products page and see the available products.
+      </p>
     </div>
   );
 };
