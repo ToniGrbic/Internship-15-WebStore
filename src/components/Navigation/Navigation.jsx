@@ -1,15 +1,15 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import styles from "./Navigation.module.css";
 
-const Navigation = () => {
+const Navigation = ({ setSearch }) => {
   const navigate = useNavigate();
-  const [search, setSearch] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate("/products", { state: { query: search } });
+    setSearch(searchTerm);
+    navigate("/products");
   };
 
   return (
@@ -18,8 +18,8 @@ const Navigation = () => {
         <form onSubmit={handleSubmit}>
           <input
             type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search..."
           />
           <button type="submit">Search</button>
