@@ -13,7 +13,7 @@ const Product = ({ products }) => {
       return product.id !== location?.state?.id;
     });
     setOtherProducts(otherProducts);
-  }, [location.state, products]);
+  }, [product, products]);
 
   return (
     <>
