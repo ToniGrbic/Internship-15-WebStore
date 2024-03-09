@@ -1,11 +1,13 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import ProductCard from "../../components/ProductCard";
 import styles from "./Products.module.css";
 
 const Products = ({ products, categories, search }) => {
   const [categoryFilter, setCategoryFilter] = useState("All");
   const [filteredProducts, setFilteredProducts] = useState(products);
+  const [_, setSearchParams] = useSearchParams();
 
   const filterProducts = (products, searchTerm) => {
     return products.filter((product) => {
@@ -22,6 +24,7 @@ const Products = ({ products, categories, search }) => {
   };
 
   useEffect(() => {
+    setSearchParams({ search });
     const filteredProducts = filterProducts(products, search);
     setFilteredProducts(filteredProducts);
   }, [search, categoryFilter]);

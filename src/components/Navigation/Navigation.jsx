@@ -1,17 +1,15 @@
 import React, { useState } from "react";
-import { Outlet, useNavigate, useSearchParams } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import styles from "./Navigation.module.css";
 
 const Navigation = ({ setSearch }) => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
-  const [_, setSearchParams] = useSearchParams();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSearch(searchTerm);
     navigate("/products");
-    setSearchParams({ search: searchTerm });
   };
 
   return (
