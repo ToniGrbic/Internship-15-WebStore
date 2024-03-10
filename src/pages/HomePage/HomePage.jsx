@@ -13,7 +13,7 @@ const HomePage = ({ products, isLoading, isError }) => {
       <h1>Welcome to the home page!</h1>
       <p>
         This is a simple e-commerce site. Search for a product to navigate to
-        the products page where you can filter by category.
+        the products page where you can also filter by category.
       </p>
       <h2>All Products:</h2>
       <div className={styles["products-container"]}>
