@@ -16,6 +16,14 @@ function App() {
   const [isError, setError] = useState(false);
   const url = "https://fakestoreapi.com/products";
 
+  const getCategories = (products) => {
+    const categories = products.reduce((acc, product) => {
+      if (!acc.includes(product.category)) acc.push(product.category);
+      return acc;
+    }, []);
+    return categories;
+  };
+
   useEffect(() => {
     (async () => {
       try {
@@ -23,11 +31,7 @@ function App() {
         const products = await response.json();
         setProducts(products);
 
-        const categories = products.reduce((acc, product) => {
-          if (!acc.includes(product.category)) acc.push(product.category);
-          return acc;
-        }, []);
-
+        const categories = getCategories(products);
         setCategories(["All", ...categories]);
         setLoading(false);
       } catch (error) {
