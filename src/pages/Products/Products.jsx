@@ -6,7 +6,7 @@ import styles from "./Products.module.css";
 
 const Products = ({ products, categories, search }) => {
   const [categoryFilter, setCategoryFilter] = useState("All");
-  const [filteredProducts, setFilteredProducts] = useState(products);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [_, setSearchParams] = useSearchParams();
 
   const filterProducts = (products, searchTerm) => {
@@ -25,8 +25,7 @@ const Products = ({ products, categories, search }) => {
 
   useEffect(() => {
     setSearchParams({ search });
-    const filteredProducts = filterProducts(products, search);
-    setFilteredProducts(filteredProducts);
+    setFilteredProducts(filterProducts(products, search));
   }, [search, categoryFilter]);
 
   return (
