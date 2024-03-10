@@ -1,20 +1,19 @@
 import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Navigation from "./components/Navigation";
-import Home from "./pages/Home";
+import HomePage from "./pages/HomePage";
 import Product from "./pages/Product";
 import Products from "./pages/Products";
 import NotFound from "./pages/NotFound";
 
 function App() {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [search, setSearch] = useState("");
 
+  const [isLoading, setLoading] = useState(true);
+  const [isError, setError] = useState(false);
   const url = "https://fakestoreapi.com/products";
 
   useEffect(() => {
@@ -32,43 +31,41 @@ function App() {
         setCategories(["All", ...categories]);
         setLoading(false);
       } catch (error) {
-        console.log(error);
         setError(true);
       }
     })();
   }, []);
 
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<Navigation setSearch={setSearch} />}>
-            <Route
-              path="/"
-              element={
-                <Home products={products} loading={loading} error={error} />
-              }
+    <Routes>
+      <Route element={<Navigation setSearch={setSearch} />}>
+        <Route
+          path="/"
+          element={
+            <HomePage
+              products={products}
+              isLoading={isLoading}
+              isError={isError}
             />
-            <Route
-              path="/products"
-              element={
-                <Products
-                  products={products}
-                  categories={categories}
-                  search={search}
-                />
-              }
+          }
+        />
+        <Route
+          path="/products"
+          element={
+            <Products
+              products={products}
+              categories={categories}
+              search={search}
             />
-            <Route
-              path="/product/:productId"
-              element={<Product products={products} />}
-            />
-            <Route path="*" element={<NotFound />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </>
+          }
+        />
+        <Route
+          path="/product/:productId"
+          element={<Product products={products} />}
+        />
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
   );
 }
-
 export default App;

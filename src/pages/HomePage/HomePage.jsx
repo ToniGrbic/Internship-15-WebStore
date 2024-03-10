@@ -1,12 +1,12 @@
 import React from "react";
-import styles from "./Home.module.css";
+import styles from "./HomePage.module.css";
 import ProductCard from "../../components/ProductCard";
 import LoadingSpinner from "../../components/LoadingSpinner";
 
-const Home = ({ products, loading, error }) => {
+const HomePage = ({ products, isLoading, isError }) => {
   return (
     <>
-      {error ? (
+      {isError ? (
         <h2>Something went wrong, try again later...</h2>
       ) : (
         <div className={styles["home-container"]}>
@@ -17,7 +17,7 @@ const Home = ({ products, loading, error }) => {
           </p>
           <h2>All Products:</h2>
           <div className={styles["products-container"]}>
-            {loading ? (
+            {isLoading ? (
               <div>
                 <h2 className={styles["loading-text"]}>Loading...</h2>
                 <LoadingSpinner />
@@ -34,4 +34,4 @@ const Home = ({ products, loading, error }) => {
   );
 };
 
-export default Home;
+export default HomePage;
