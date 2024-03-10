@@ -8,7 +8,10 @@ const NotFound = () => {
   return (
     <div className={styles["not-found-container"]}>
       <p className={styles["not-found-text"]}>404 Error: Page not found</p>
-      <button className={styles["go-back-button"]} onClick={() => navigate(-1)}>
+      <button
+        className={styles["go-back-button"]}
+        onClick={() => navigate("/products")}
+      >
         Go back
       </button>
     </div>
